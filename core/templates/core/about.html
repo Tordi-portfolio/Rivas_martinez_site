@@ -1,0 +1,16 @@
+{% extends "core/base.html" %}
+{% block title %}About us | {{ biz.name }}{% endblock %}
+{% block content %}
+<section class="page-head"><div class="wrap"><h1>A Houston cleaning company that treats your home like its own.</h1>
+<p class="lead">Latino-owned, LGBTQ+ friendly and rated {{ biz.rating }} stars by {{ biz.reviews }} Google reviewers.</p></div></section>
+<section class="sec"><div class="wrap two"><h2>Our story</h2><div class="prose">
+<p>{{ biz.name }} started with a straightforward idea: people deserve a cleaning service they never have to worry about. Too many companies send a different stranger each week, rush through the job and disappear when something goes wrong. We chose to do it differently.</p>
+<p>We build small, consistent teams so you see familiar faces. We train every cleaner in the same room-by-room method so quality does not depend on who shows up. And we keep our door open at all hours, because life does not only happen between nine and five.</p>
+<p>Based on Arvana Street in Houston, we serve families, renters, landlords and local businesses who want the same thing: a space that is clean, calm and ready to use.</p></div></div></section>
+<section class="sec tint"><div class="wrap"><h2>What we stand for</h2><div class="grid2">{% for t,d in promises %}<div class="promise"><h3>{{ t }}</h3><p>{{ d }}</p></div>{% endfor %}</div></div></section>
+<section class="sec"><div class="wrap two"><h2>Care for people and place</h2><div class="prose">
+<p>We believe a good workplace makes better cleaning. Our team members are paid fairly, trained properly and respected. In your home, that shows up as pride in the work.</p>
+<p>Everyone is welcome here, as clients and as colleagues. We are proud to be a Latino-owned business and a welcoming service for the LGBTQ+ community.</p>
+<p>We also care about what we leave behind: efficient use of water, concentrated products where they work, and gentle options for households with children, pets and allergies.</p></div></div></section>
+<section class="sec cta-band"><div class="wrap"><h2>Let us take cleaning off your list.</h2><a class="btn" href="{% url 'contact' %}">Request a quote</a></div></section>
+{% endblock %}

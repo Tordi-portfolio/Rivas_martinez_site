@@ -1,0 +1,46 @@
+{% extends "core/base.html" %}
+{% block content %}
+<section class="hero"><div class="wrap hero-in">
+  <div>
+    <h1>Come home to a place that feels <span class="wipe">freshly rinsed.</span></h1>
+    <p class="lead">{{ biz.name }} brings careful, dependable cleaning to homes and offices across Houston. You tell us what matters. We handle every corner, on your schedule, any hour of the day.</p>
+    <div class="cta"><a class="btn" href="{% url 'contact' %}">Get a free quote</a><a class="btn ghost" href="tel:{{ biz.phone_href }}">Call {{ biz.phone }}</a></div>
+    <p class="proof"><b>{{ biz.rating }}</b> out of 5 on Google, from {{ biz.reviews }} reviews</p>
+  </div>
+  <div class="pane" aria-hidden="true"><div class="smudge"></div><div class="squeegee"></div><p>Open<br>24 hours</p></div>
+</div></section>
+
+<section class="sec"><div class="wrap two">
+  <h2>A cleaner home is more than a tidier one.</h2>
+  <div class="prose">
+    <p>A clean space changes how a day feels. Mornings start calmer, guests are welcomed without apologies, and the hours you used to spend scrubbing go back to family, work and rest. That is the real service we provide: time and peace of mind.</p>
+    <p>We are a Houston, Texas cleaning company built on a simple belief. Good cleaning is about attention to detail, honest communication and showing up when we say we will. Our customers consistently tell us the difference is in the small things: the baseboards, the corners behind the door, the way every cleaner treats their home with respect.</p>
+    <p>Whether you need a one-time deep clean before a celebration, a weekly visit that keeps the house in order, or a reliable team for your office, we tailor the checklist to you, not the other way around.</p>
+  </div>
+</div></section>
+
+<section class="sec tint"><div class="wrap">
+  <h2>Services made around real life</h2>
+  <div class="grid3">{% for s in services %}
+    <article class="card"><h3>{{ s.title }}</h3><p>{{ s.blurb }}</p><p class="muted">Best for: {{ s.for }}</p><a href="{% url 'contact' %}?service={{ s.slug }}">Request this service</a></article>{% endfor %}
+  </div>
+  <p><a class="more" href="{% url 'services' %}">See every service and what is included</a></p>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <h2>Our promise to every client</h2>
+  <div class="grid2">{% for t,d in promises %}<div class="promise"><h3>{{ t }}</h3><p>{{ d }}</p></div>{% endfor %}</div>
+</div></section>
+
+<section class="sec dark"><div class="wrap">
+  <h2>How booking works</h2>
+  <ol class="steps">{% for t,d in steps %}<li><h3>{{ t }}</h3><p>{{ d }}</p></li>{% endfor %}</ol>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <h2>What our neighbors say</h2>
+  <div class="grid3">{% for q,w in testimonials %}<blockquote class="quote"><p>{{ q }}</p><footer>{{ w }}</footer></blockquote>{% endfor %}</div>
+</div></section>
+
+<section class="sec cta-band"><div class="wrap"><h2>Ready for a spotless space?</h2><p>Send us a few details and we will reply with a clear, written quote, usually the same day.</p><a class="btn" href="{% url 'contact' %}">Request your quote</a></div></section>
+{% endblock %}

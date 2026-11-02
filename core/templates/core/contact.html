@@ -1,0 +1,18 @@
+{% extends "core/base.html" %}
+{% block title %}Contact & free quote | {{ biz.name }}{% endblock %}
+{% block content %}
+<section class="page-head"><div class="wrap"><h1>Tell us what you need cleaned.</h1>
+<p class="lead">Fill in the form and we will reply with a clear quote, usually the same day. Prefer to talk? Call any time, we are open 24 hours.</p></div></section>
+<section class="sec"><div class="wrap contact">
+  <form method="post" class="form" novalidate>{% csrf_token %}
+    <div class="hp" aria-hidden="true">{{ form.website }}</div>
+    {% for f in form.visible_fields %}<div class="field"><label for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}{% for e in f.errors %}<p class="err">{{ e }}</p>{% endfor %}</div>{% endfor %}
+    <button class="btn" type="submit">Send message</button>
+  </form>
+  <aside class="prose"><h2>Reach us directly</h2>
+    <p><strong>Phone</strong><br><a href="tel:{{ biz.phone_href }}">{{ biz.phone }}</a></p>
+    <p><strong>Address</strong><br>{{ biz.address }}</p><p><strong>Hours</strong><br>{{ biz.hours }}</p>
+    <h3>Good to know</h3>{% for q,a in faq %}<details><summary>{{ q }}</summary><p>{{ a }}</p></details>{% endfor %}
+  </aside>
+</div></section>
+{% endblock %}

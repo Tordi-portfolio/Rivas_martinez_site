@@ -1,0 +1,15 @@
+{% extends "core/base.html" %}
+{% block title %}Admin sign in | {{ biz.name }}{% endblock %}
+{% block bodyclass %}portal{% endblock %}
+{% block footer %}{% endblock %}
+{% block content %}
+<section class="sec"><div class="wrap narrow"><h1>Admin sign in</h1>
+<p class="muted">This area is for authorized administrators only.</p>
+<form method="post" class="form" novalidate>{% csrf_token %}
+  {% if form.errors %}<p class="err">{% if form.non_field_errors %}{{ form.non_field_errors.0 }}{% else %}Check your username and password.{% endif %}</p>{% endif %}
+  <div class="field"><label for="id_username">Username</label>{{ form.username }}</div>
+  <div class="field"><label for="id_password">Password</label>{{ form.password }}</div>
+  <input type="hidden" name="next" value="{{ next }}">
+  <button class="btn" type="submit">Sign in</button>
+</form><p><a href="{% url 'home' %}">Back to website</a></p></div></section>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% load static %}<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ biz.name }} | Houston house & office cleaning{% endblock %}</title>
+<meta name="description" content="Trusted house and office cleaning in Houston, TX. Open 24 hours. Rated {{ biz.rating }} stars by {{ biz.reviews }} Google reviewers.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+<body class="{% block bodyclass %}{% endblock %}">
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="{% url 'home' %}"><span class="mark" aria-hidden="true"></span>{{ biz.short }}<small>Cleaning Services</small></a>
+  <button class="burger" aria-label="Menu" aria-expanded="false" onclick="var o=document.getElementById('links').classList.toggle('open');this.setAttribute('aria-expanded',o)">Menu</button>
+  <nav id="links" class="links">
+    <a href="{% url 'services' %}">Services</a><a href="{% url 'about' %}">About</a><a href="{% url 'contact' %}">Contact</a>
+    <a class="btn sm" href="tel:{{ biz.phone_href }}">{{ biz.phone }}</a>
+  </nav>
+</div></header>
+{% if messages %}<div class="wrap">{% for m in messages %}<p class="flash {{ m.tags }}" role="status">{{ m }}</p>{% endfor %}</div>{% endif %}
+<main id="main">{% block content %}{% endblock %}</main>
+{% block footer %}
+<footer class="foot"><div class="wrap foot-in">
+  <div><strong>{{ biz.name }}</strong><p>Reliable cleaning for Houston homes and workplaces. Latino-owned, LGBTQ+ friendly and proud to serve every neighbor.</p></div>
+  <div><strong>Visit or call</strong><p>{{ biz.address }}<br><a href="tel:{{ biz.phone_href }}">{{ biz.phone }}</a><br>{{ biz.hours }}</p></div>
+  <div><strong>Explore</strong><p><a href="{% url 'services' %}">Services</a><br><a href="{% url 'about' %}">About us</a><br><a href="{% url 'contact' %}">Request a quote</a></p></div>
+</div>
+<div class="wrap legal">&copy; 2027 {{ biz.name }}. All rights reserved. <a href="{% url 'portal_login' %}">Staff</a></div></footer>
+{% endblock %}
+</body></html>

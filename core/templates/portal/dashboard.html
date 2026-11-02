@@ -1,0 +1,25 @@
+{% extends "core/base.html" %}
+{% block title %}Messages | Admin{% endblock %}
+{% block bodyclass %}portal{% endblock %}
+{% block footer %}{% endblock %}
+{% block content %}
+<section class="sec"><div class="wrap">
+<div class="bar"><h1>Customer messages</h1><form method="post" action="{% url 'portal_logout' %}">{% csrf_token %}<span class="muted">Signed in as {{ user.get_username }}</span> <button class="btn sm ghost">Sign out</button></form></div>
+<div class="stats"><div class="stat"><b>{{ stats.total }}</b>Total messages</div><div class="stat"><b>{{ stats.unread }}</b>Unread</div></div>
+<form class="filters" method="get">
+  <input name="q" value="{{ q }}" placeholder="Search name, email or message" aria-label="Search">
+  <select name="show" aria-label="Status"><option value="all">All</option><option value="unread" {% if flt == 'unread' %}selected{% endif %}>Unread only</option></select>
+  <select name="service" aria-label="Service"><option value="">All services</option>{% for k,v in service_choices %}<option value="{{ k }}" {% if k == service %}selected{% endif %}>{{ v }}</option>{% endfor %}</select>
+  <button class="btn sm">Filter</button>
+</form>
+<div class="tablewrap"><table>
+<thead><tr><th>From</th><th>Service</th><th>Message</th><th>Received</th><th></th></tr></thead><tbody>
+{% for m in page %}<tr class="{% if not m.is_read %}unread{% endif %}">
+<td><strong>{{ m.name }}</strong><br><a href="mailto:{{ m.email }}">{{ m.email }}</a>{% if m.phone %}<br>{{ m.phone }}{% endif %}</td>
+<td>{{ m.get_service_display }}</td><td>{{ m.message|truncatechars:90 }}</td><td>{{ m.created|date:"M j, Y g:i A" }}</td>
+<td><a class="btn sm" href="{% url 'portal_message' m.pk %}">Open</a></td></tr>
+{% empty %}<tr><td colspan="5">No messages match. New customer messages will appear here.</td></tr>{% endfor %}
+</tbody></table></div>
+<p class="pager">{% if page.has_previous %}<a href="?page={{ page.previous_page_number }}&q={{ q|urlencode }}&show={{ flt }}&service={{ service }}">Newer</a>{% endif %} Page {{ page.number }} of {{ page.paginator.num_pages }} {% if page.has_next %}<a href="?page={{ page.next_page_number }}&q={{ q|urlencode }}&show={{ flt }}&service={{ service }}">Older</a>{% endif %}</p>
+</div></section>
+{% endblock %}

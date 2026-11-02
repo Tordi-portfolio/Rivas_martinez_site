@@ -1,0 +1,16 @@
+{% extends "core/base.html" %}
+{% block title %}{{ m.name }} | Admin{% endblock %}
+{% block bodyclass %}portal{% endblock %}
+{% block footer %}{% endblock %}
+{% block content %}
+<section class="sec"><div class="wrap narrow">
+<p><a href="{% url 'portal_dashboard' %}">Back to all messages</a></p>
+<h1>{{ m.name }}</h1>
+<p class="muted">{{ m.get_service_display }} &middot; {{ m.created|date:"l, F j, Y g:i A" }}</p>
+<p><a href="mailto:{{ m.email }}">{{ m.email }}</a>{% if m.phone %} &middot; <a href="tel:{{ m.phone }}">{{ m.phone }}</a>{% endif %}</p>
+<div class="msgbox">{{ m.message|linebreaks }}</div>
+<form method="post" action="{% url 'portal_action' m.pk %}" class="row">{% csrf_token %}
+  <button class="btn sm ghost" name="action" value="unread">Mark as unread</button>
+  <button class="btn sm danger" name="action" value="delete" onclick="return confirm('Delete this message permanently?')">Delete message</button>
+</form></div></section>
+{% endblock %}

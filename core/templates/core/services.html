@@ -1,0 +1,12 @@
+{% extends "core/base.html" %}
+{% block title %}Cleaning services | {{ biz.name }}{% endblock %}
+{% block content %}
+<section class="page-head"><div class="wrap"><h1>Cleaning services for every space and schedule</h1>
+<p class="lead">From a single deep clean to ongoing weekly care, every service follows a written checklist and is backed by our reclean guarantee.</p></div></section>
+<section class="sec"><div class="wrap">{% for s in services %}
+  <article class="svc"><div><h2>{{ s.title }}</h2><p class="muted">Best for: {{ s.for }}</p></div>
+  <div class="prose"><p><strong>{{ s.blurb }}</strong></p><p>{{ s.body }}</p><a class="btn sm" href="{% url 'contact' %}?service={{ s.slug }}">Request a quote</a></div></article>{% endfor %}
+</div></section>
+<section class="sec tint"><div class="wrap two"><h2>Frequently asked questions</h2>
+<div class="faq">{% for q,a in faq %}<details><summary>{{ q }}</summary><p>{{ a }}</p></details>{% endfor %}</div></div></section>
+{% endblock %}
